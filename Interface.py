@@ -1,0 +1,93 @@
+#!/usr/bin/env python
+
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QHBoxLayout
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(789, 377)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setAutoFillBackground(False)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.imageProcessor = QtWidgets.QPushButton(self.centralwidget)
+        self.imageProcessor.setGeometry(QtCore.QRect(670, 20, 91, 41))
+        self.imageProcessor.setObjectName("imageProcessor")
+        self.image_explorer = QtWidgets.QLineEdit(self.centralwidget)
+        self.image_explorer.setGeometry(QtCore.QRect(30, 20, 521, 41))
+        self.image_explorer.setObjectName("image_explorer")
+        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar.setGeometry(QtCore.QRect(390, 100, 381, 23))
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setObjectName("progressBar")
+        self.progressBar_2 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_2.setGeometry(QtCore.QRect(390, 160, 381, 23))
+        self.progressBar_2.setProperty("value", 0)
+        self.progressBar_2.setObjectName("progressBar_2")
+        self.progressBar_3 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_3.setGeometry(QtCore.QRect(390, 220, 381, 23))
+        self.progressBar_3.setProperty("value", 0)
+        self.progressBar_3.setObjectName("progressBar_3")
+        self.progressBar_4 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_4.setGeometry(QtCore.QRect(390, 280, 381, 23))
+        self.progressBar_4.setProperty("value", 0)
+        self.progressBar_4.setObjectName("progressBar_4")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(390, 80, 55, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(390, 140, 55, 16))
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(390, 200, 55, 16))
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(390, 260, 55, 16))
+        self.label_4.setObjectName("label_4")
+        self.fileFinder = QtWidgets.QPushButton(self.centralwidget)
+        self.fileFinder.setGeometry(QtCore.QRect(560, 20, 101, 41))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.fileFinder.sizePolicy().hasHeightForWidth())
+        self.fileFinder.setSizePolicy(sizePolicy)
+        self.fileFinder.setMaximumSize(QtCore.QSize(167, 167))
+        self.fileFinder.setObjectName("fileFinder")
+        self.imageWindow = QtWidgets.QLabel(self.centralwidget)
+        self.imageWindow.setGeometry(QtCore.QRect(40, 80, 331, 241))
+        self.imageWindow.setTextFormat(QtCore.Qt.RichText)
+        self.imageWindow.setPixmap(QtGui.QPixmap("check_default.png"))
+        self.imageWindow.setScaledContents(True)
+        self.imageWindow.setObjectName("imageWindow")
+
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Image Checker"))
+        self.imageProcessor.setText(_translate("MainWindow", "Process"))
+        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.label_2.setText(_translate("MainWindow", "TextLabel"))
+        self.label_3.setText(_translate("MainWindow", "TextLabel"))
+        self.label_4.setText(_translate("MainWindow", "TextLabel"))
+        self.fileFinder.setText(_translate("MainWindow", "Open"))
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.setFixedWidth(MainWindow.width())
+    MainWindow.setFixedHeight(MainWindow.height())
+    MainWindow.show()
+    sys.exit(app.exec_())

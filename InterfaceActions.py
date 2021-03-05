@@ -1,11 +1,13 @@
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from Interface import Ui_MainWindow
+# from Interface import Ui_MainWindow
+from InterfaceNew import Ui_MainWindow
 from PyQt5 import QtGui, QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 import sys
 from efficientNetClassify import predict
-class InterfaceProcess(qtw.QWidget):
+from efficientNetClassify import PredictReponse
+class InterfaceProcess(qtw.QMainWindow):
     def __init__(self,*args,**kwars):
         super().__init__(*args,**kwars)
         self.ui=Ui_MainWindow()
@@ -26,13 +28,16 @@ class InterfaceProcess(qtw.QWidget):
     def processImage(self):
         image_location=self.ui.image_explorer.text()
         if image_location!="":
-            #retrieve your array
-            percentage_array=predict(image_location)[0]
+           
+            predictedResults=predict(image_location)
+            percentage_array= predictedResults.multiClassArray
+            binary_percentage_array= predictedResults.binaryArray
             # percentage_array=(45,50,12,32)
             self.ui.progressBar.setValue(percentage_array[0])
             self.ui.progressBar_2.setValue(percentage_array[1])
             self.ui.progressBar_3.setValue(percentage_array[2])
             self.ui.progressBar_4.setValue(percentage_array[3])
+            self.ui.progressBar_9.setValue(binary_percentage_array[0])
         else:
             qtw.QMessageBox.critical(self,"Fail","Select Image First")
 

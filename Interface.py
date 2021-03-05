@@ -73,12 +73,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Image Checker"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "JPEG Image Steganalyzer"))
         self.imageProcessor.setText(_translate("MainWindow", "Process"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
-        self.label_2.setText(_translate("MainWindow", "TextLabel"))
-        self.label_3.setText(_translate("MainWindow", "TextLabel"))
-        self.label_4.setText(_translate("MainWindow", "TextLabel"))
+        self.label.setText(_translate("MainWindow", "Cover Image"))
+        self.label_2.setText(_translate("MainWindow", "JMIPOD Stego"))
+        self.label_3.setText(_translate("MainWindow", "JUNIWARD Stego"))
+        self.label_4.setText(_translate("MainWindow", "UERD Stego"))
         self.fileFinder.setText(_translate("MainWindow", "Open"))
 
 

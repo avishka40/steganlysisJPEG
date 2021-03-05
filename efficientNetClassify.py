@@ -23,7 +23,8 @@ from torch.utils.data.sampler import SequentialSampler, RandomSampler
 import sklearn
 import jpegio as jio
 from utils.jpeg_utils import *
-
+from models.Ensemble import Ensemble
+from models.MobileVNet import MobileVNet
 def get_train_transforms():
     return A.Compose([
             A.HorizontalFlip(p=0.5),
@@ -39,6 +40,10 @@ def get_valid_transforms():
         ], p=1.0)
 #Model as a backbone
 from efficientnet_pytorch import EfficientNet
+class PredictReponse():
+    def __init__(self,binaryArray,multiClassArray):
+        self.binaryArray=binaryArray;
+        self.multiClassArray=multiClassArray;
 class DatasetSubmissionRetriever(Dataset):
 
     def __init__(self):
@@ -66,9 +71,13 @@ class DatasetSubmissionRetriever(Dataset):
     def __len__(self) -> int:
         return 1;
 def predict(filename): 
-    net = EfficientNet.from_pretrained('efficientnet-b2',include_top = True)
-    net._fc = nn.Linear(in_features=1408, out_features=4, bias=True)
-    checkpoint = torch.load('./best-checkpoint-033epoch.bin')
+    # net = EfficientNet.from_pretrained('efficientnet-b2')
+
+    # net._fc = nn.Linear(in_features=1408, out_features=4, bias=True)
+    net = Ensemble()
+    net = MobileVNet()
+    #checkpoint = torch.load('./best-checkpoint-033epoch.bin')
+    checkpoint = torch.load('./100epoch/best-checkpoint-099epoch.bin')
     net.load_state_dict(checkpoint['model_state_dict']);
     net.eval();
     # dataset = DatasetSubmissionRetriever()
@@ -108,14 +117,14 @@ def predict(filename):
     # print("shape",image.shape)
     transform = get_valid_transforms()
     image = cv2.imread(filename, cv2.IMREAD_COLOR)
-    jpeg_struct = jio.read(filename)
-    print("DCT")
-    print(np.stack(jpeg_struct.coef_arrays, axis=-1))
-    print("DCT End")
-    image = decompress_structure(jpeg_struct)
-    image = ycbcr2rgb(image).astype(np.float32)
+    # jpeg_struct = jio.read(filename)
+    # print("DCT")
+    # # print(np.stack(jpeg_struct.coef_arrays, axis=-1))
+    # print("DCT End")
+    # image = decompress_structure(jpeg_struct)
+    # image = ycbcr2rgb(image).astype(np.float32)
     print("image",image)
-    #   image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype(np.float32)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype(np.float32)
     image /= 255.0
     sample = {'image': image}
     sample = transform(**sample)
@@ -123,13 +132,20 @@ def predict(filename):
     print(image.shape)
     image = image.view(1, 3, 512,512)
     y_pred = net(image)
-    y_pred= 1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()
+    print(y_pred)
+    print(1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0])
+    binaryClassification = 1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0]
+    binaryClassification=binaryClassification*100
+    binaryClassification=binaryClassification.astype(int)
+    y_pred= nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()
     y_pred = y_pred * 100
+
     print(y_pred)
     
     
-    #y_pred = 1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0]
+
     y_pred = y_pred.astype(int)
+    response = PredictReponse(binaryClassification,y_pred[0])
     print("test")
     print(y_pred)
        
@@ -140,7 +156,7 @@ def predict(filename):
 
 
 
-    return y_pred 
+    return response 
 
 #predict("dad")
  #rgb = cv2.cvtColor(cv2.imdecode(np.frombuffer(buf, np.uint8), cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)

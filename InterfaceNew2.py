@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './Interface2.ui'
+# Form implementation generated from reading ui file 'Interface2.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -8,17 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1253, 377)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            MainWindow.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setAutoFillBackground(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -31,12 +28,10 @@ class Ui_MainWindow(object):
         self.image_explorer.setObjectName("image_explorer")
         self.fileFinder = QtWidgets.QPushButton(self.centralwidget)
         self.fileFinder.setGeometry(QtCore.QRect(560, 20, 101, 41))
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            self.fileFinder.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(self.fileFinder.sizePolicy().hasHeightForWidth())
         self.fileFinder.setSizePolicy(sizePolicy)
         self.fileFinder.setMaximumSize(QtCore.QSize(167, 167))
         self.fileFinder.setObjectName("fileFinder")
@@ -54,11 +49,22 @@ class Ui_MainWindow(object):
         self.tab.setObjectName("tab")
         self.progressBar_9 = QtWidgets.QProgressBar(self.tab)
         self.progressBar_9.setGeometry(QtCore.QRect(10, 40, 381, 23))
-        self.progressBar_9.setProperty("value", 0)
+        self.progressBar_9.setProperty("value", 24)
         self.progressBar_9.setObjectName("progressBar_9")
         self.label_10 = QtWidgets.QLabel(self.tab)
-        self.label_10.setGeometry(QtCore.QRect(10, 20, 381, 23))
+        self.label_10.setGeometry(QtCore.QRect(10, 20, 81, 16))
         self.label_10.setObjectName("label_10")
+        self.pushButton = QtWidgets.QPushButton(self.tab)
+        self.pushButton.setEnabled(False)
+        self.pushButton.setGeometry(QtCore.QRect(120, 100, 80, 61))
+        self.pushButton.setStyleSheet("background-color: rgb(170, 0, 0);")
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_2.setEnabled(False)
+        self.pushButton_2.setGeometry(QtCore.QRect(200, 100, 80, 61))
+        self.pushButton_2.setStyleSheet("background-color: rgb(0, 170, 0);\n"
+"background-color: rgb(0, 255, 0);")
+        self.pushButton_2.setObjectName("pushButton_2")
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -70,49 +76,32 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.progressBar = QtWidgets.QProgressBar(self.tab_2)
         self.progressBar.setGeometry(QtCore.QRect(10, 30, 381, 23))
-        self.progressBar.setProperty("value", 0)
+        self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
         self.progressBar_2 = QtWidgets.QProgressBar(self.tab_2)
         self.progressBar_2.setGeometry(QtCore.QRect(10, 90, 381, 23))
-        self.progressBar_2.setProperty("value", 0)
+        self.progressBar_2.setProperty("value", 24)
         self.progressBar_2.setObjectName("progressBar_2")
         self.label_4 = QtWidgets.QLabel(self.tab_2)
-        self.label_4.setGeometry(QtCore.QRect(10, 190, 381, 23))
+        self.label_4.setGeometry(QtCore.QRect(10, 190, 55, 16))
         self.label_4.setObjectName("label_4")
         self.progressBar_3 = QtWidgets.QProgressBar(self.tab_2)
         self.progressBar_3.setGeometry(QtCore.QRect(10, 150, 381, 23))
-        self.progressBar_3.setProperty("value", 0)
+        self.progressBar_3.setProperty("value", 24)
         self.progressBar_3.setObjectName("progressBar_3")
         self.progressBar_4 = QtWidgets.QProgressBar(self.tab_2)
         self.progressBar_4.setGeometry(QtCore.QRect(10, 210, 381, 23))
-        self.progressBar_4.setProperty("value", 0)
+        self.progressBar_4.setProperty("value", 24)
         self.progressBar_4.setObjectName("progressBar_4")
         self.label_3 = QtWidgets.QLabel(self.tab_2)
-        self.label_3.setGeometry(QtCore.QRect(10, 130, 381, 23))
+        self.label_3.setGeometry(QtCore.QRect(10, 130, 55, 16))
         self.label_3.setObjectName("label_3")
         self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.imageWindow = QtWidgets.QLabel(self.centralwidget)
-        self.imageWindow.setGeometry(QtCore.QRect(40, 80, 331, 241))
-        self.imageWindow.setTextFormat(QtCore.Qt.RichText)
-        self.imageWindow.setPixmap(QtGui.QPixmap("check_default.png"))
-        self.imageWindow.setScaledContents(True)
-        self.imageWindow.setObjectName("imageWindow")
-        self.pushButton = QtWidgets.QPushButton(self.tab)
-        self.pushButton.setEnabled(False)
-        self.pushButton.setGeometry(QtCore.QRect(120, 100, 80, 61))
-        self.pushButton.setStyleSheet(
-            "background-color: rgb(41.2%, 41.2%, 41.2%);")
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.tab)
-        self.pushButton_2.setEnabled(False)
-        self.pushButton_2.setGeometry(QtCore.QRect(200, 100, 80, 61))
-        self.pushButton_2.setStyleSheet(
-            "background-color: rgb(41.2%, 41.2%, 41.2%);")
-        self.pushButton_2.setObjectName("pushButton_2")
+
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -122,14 +111,23 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Image Checker"))
         self.imageProcessor.setText(_translate("MainWindow", "Process"))
         self.fileFinder.setText(_translate("MainWindow", "Open"))
-        self.label_10.setText(_translate("MainWindow", "Stego Percentage"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(
-            self.tab), _translate("MainWindow", "Binary Classification"))
-        self.label.setText(_translate("MainWindow", "Cover Image"))
-        self.label_2.setText(_translate("MainWindow", "JMiPOD Image"))
-        self.label_4.setText(_translate("MainWindow", " UERD Image"))
-        self.label_3.setText(_translate("MainWindow", "JUNIWARD Image"))
+        self.label_10.setText(_translate("MainWindow", "TextLabel"))
         self.pushButton.setText(_translate("MainWindow", "Stego"))
         self.pushButton_2.setText(_translate("MainWindow", "Cover"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(
-            self.tab_2), _translate("MainWindow", "Classifcation"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Tab 1"))
+        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.label_2.setText(_translate("MainWindow", "TextLabel"))
+        self.label_4.setText(_translate("MainWindow", "TextLabel"))
+        self.label_3.setText(_translate("MainWindow", "TextLabel"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+

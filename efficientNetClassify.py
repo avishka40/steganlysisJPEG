@@ -70,14 +70,17 @@ class DatasetSubmissionRetriever(Dataset):
 
     def __len__(self) -> int:
         return 1;
+import os
+
 def predict(filename): 
     # net = EfficientNet.from_pretrained('efficientnet-b2')
 
     # net._fc = nn.Linear(in_features=1408, out_features=4, bias=True)
-    net = Ensemble()
+    #net = Ensemble(3)
     net = MobileVNet()
     #checkpoint = torch.load('./best-checkpoint-033epoch.bin')
     checkpoint = torch.load('./100epoch/best-checkpoint-099epoch.bin')
+    #checkpoint = torch.load('./confusion_matrix/3classbalnced93.bin')
     net.load_state_dict(checkpoint['model_state_dict']);
     net.eval();
     # dataset = DatasetSubmissionRetriever()
@@ -136,7 +139,7 @@ def predict(filename):
     print(1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0])
     binaryClassification = 1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0]
     binaryClassification=binaryClassification*100
-    binaryClassification=binaryClassification.astype(int)
+    # binaryClassification=binaryClassification.astype(int)
     y_pred= nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()
     y_pred = y_pred * 100
 
@@ -144,8 +147,17 @@ def predict(filename):
     
     
 
-    y_pred = y_pred.astype(int)
-    response = PredictReponse(binaryClassification,y_pred[0])
+    # y_pred = y_pred.astype(int)
+    multi=y_pred[0]
+    print(np.argmax(multi,axis=0))
+  
+   
+    if(np.argmax(multi,axis=0)==0):
+        binaryClassification[0]=0
+
+    elif(multi[np.argmax(multi,axis=0)]<=50 and  multi[np.argmax(multi,axis=0)]-np.partition(multi.flatten(),-2)[-2]<=10 ):
+        binaryClassification[0]=0.1
+    response = PredictReponse(binaryClassification.astype(int),y_pred[0].astype(int))
     print("test")
     print(y_pred)
        
@@ -161,3 +173,79 @@ def predict(filename):
 #predict("dad")
  #rgb = cv2.cvtColor(cv2.imdecode(np.frombuffer(buf, np.uint8), cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
  #           dct = _read_with_jio(tmp_jpeg.name, method[4:])
+import json
+
+def predictMultiple(path):
+
+    directory = './TEST/cover/'
+    result={}
+    for filename in os.listdir(directory):
+        print("filename",filename)
+        if filename.endswith(".jpeg") or filename.endswith(".jpg"):
+           print("filename",directory+filename)
+           response=predict(directory+filename)
+           result[filename]={"binary":response.binaryArray.tolist(),
+           "multi":response.multiClassArray.tolist()}
+        else:
+           continue
+    with open('4classCoverMobileVnet', 'w') as f:
+        json.dump(result, f)
+
+predictMultiple("test")
+class Predicter:
+    def __init__(self):
+        self.net = Ensemble(3)
+        self.checkpoint = torch.load('./confusion_matrix/3classbalnced93.bin')
+        self.net.load_state_dict(self.checkpoint['model_state_dict']);
+        self.net.eval();
+        self.transform = get_valid_transforms()
+    
+    def preprocess(self,filename):
+        image = cv2.imread(filename, cv2.IMREAD_COLOR)
+        # jpeg_struct = jio.read(filename)
+        # print("DCT")
+        # # print(np.stack(jpeg_struct.coef_arrays, axis=-1))
+        # print("DCT End")
+        # image = decompress_structure(jpeg_struct)
+        # image = ycbcr2rgb(image).astype(np.float32)
+        print("image",image)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype(np.float32)
+        image /= 255.0
+        sample = {'image': image}
+        sample = self.transform(**sample)
+        image = sample['image']
+        print(image.shape)
+        image = image.view(1, 3, 512,512)
+        return image
+    
+    def predict(self,image):
+        y_pred = self.net(image)
+        print(y_pred)
+        print(1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0])
+        binaryClassification = 1 - nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()[:,0]
+        binaryClassification=binaryClassification*100
+        # binaryClassification=binaryClassification.astype(int)
+        y_pred= nn.functional.softmax(y_pred, dim=1).data.cpu().numpy()
+        y_pred = y_pred * 100
+
+        print(y_pred)
+        # y_pred = y_pred.astype(int)
+        multi=y_pred[0]
+        print(np.argmax(multi,axis=0))
+        if(np.argmax(multi,axis=0)==0):
+            binaryClassification[0]=0
+
+        elif(multi[np.argmax(multi,axis=0)]<=50 and  multi[np.argmax(multi,axis=0)]-np.partition(multi.flatten(),-2)[-2]<=10 ):
+            binaryClassification[0]=0.1
+        response = PredictReponse(binaryClassification.astype(int),y_pred[0].astype(int))
+        print("test")
+        print(y_pred)
+
+            # results[0]=y_pred[0].int()
+            # results[1]=y_pred[1].int()
+            # results[2]=y_pred[2].int()
+            # results[3]=y_pred[3].int()
+
+
+
+        return response 

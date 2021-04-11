@@ -1,0 +1,5 @@
+F1 micro averaging: 0.7678978781913065
+F1 binary averaging: 0.8405927738252369
+Precion micro averaging: 0.7678978781913065
+Precion binary averaging: 0.8667566610604586
+Recall binary averaging: 0.8159621674548447

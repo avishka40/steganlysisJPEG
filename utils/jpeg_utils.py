@@ -1,5 +1,4 @@
 import numpy as np
-import jpegio as jio
 from tqdm import tqdm
 import os
 from scipy import fftpack

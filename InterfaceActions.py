@@ -13,6 +13,7 @@ from efficientNetClassify import Predicter
 from efficientNetClassify import predictFromWeb
 import time
 import json
+import qdarkstyle
 
 args=None
 predicter=None
@@ -68,7 +69,7 @@ class ProcessThread(qtc.QThread):
               
             else:
                 qtw.QMessageBox.critical(
-                    self.obj, "Fail", "Image Format is Invalud")
+                    self.obj, "Fail", "Image Format is Invalid")
         else:
             qtw.QMessageBox.critical(self.obj, "Fail", "Select Image First")
         # self.parentUI.label_10.setMovie(self.parentUI.movie)
@@ -95,6 +96,7 @@ class InterfaceProcess(qtw.QMainWindow):
         self.ui.progressBar.setValue(0)
         self.ui.progressBar_2.setValue(0)
         self.ui.progressBar_3.setValue(0)
+        self.ui.image_explorer.setText("")
         # if(args.c == 3):
         #     self.ui.progressBar_3.hide()
         self.ui.progressBar_4.setValue(0)
@@ -173,6 +175,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print("args: ",args.c)
     app = qtw.QApplication([])
+    app.setStyleSheet(qdarkstyle.load_stylesheet())
     widget = InterfaceProcess()
     # predicter = Predicter()
     

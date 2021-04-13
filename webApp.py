@@ -2,17 +2,16 @@ import os
 import urllib.request
 from app import app
 from flask import Flask, request, redirect, jsonify
-from efficientNetClassify import Predicter
+
 import numpy as np
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-predictor = None
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+predicter=app.config['predictor']
 @app.route('/file-upload', methods=['POST'])
 def upload_file():
     # check if the post request has the file part
@@ -44,5 +43,5 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    predicter = Predicter()
+    
     app.run()
